@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administrar candidatos</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="admin-container">
+
+
+        <!-- ENCABEZADO -->
+
+        <header class="admin-header">
+
+            <div>
+
+                <h1>Administrar candidatos</h1>
+
+                <p>
+                    Gestioná los candidatos que participan en la elección.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- CANDIDATOS -->
+
+        <section class="seccion-candidatos">
+
+
+            <div class="titulo-seccion">
+
+                <h2>
+                    Candidatos registrados
+                </h2>
+
+                <p>
+                    Consultá y administrá los candidatos de la elección.
+                </p>
+
+            </div>
+
+
+            <!-- BOTÓN AGREGAR -->
+
+            <div class="agregar-candidato">
+
+                <button type="button">
+                    + Agregar candidato
+                </button>
+
+            </div>
+
+
+            <!-- TABLA -->
+
+            <div class="tabla-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Nombre</th>
+
+                            <th>Apellido</th>
+
+                            <th>Lista</th>
+
+                            <th>Acciones</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <!--
+                            Los candidatos se cargarán
+                            posteriormente desde la base de datos.
+                        -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</body>
+
+</html>

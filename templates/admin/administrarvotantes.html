@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administrar votantes</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="admin-container">
+
+
+        <!-- ENCABEZADO -->
+
+        <header class="admin-header">
+
+            <div>
+
+                <h1>Administrar votantes</h1>
+
+                <p>
+                    Gestioná la información de los votantes registrados.
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ESTADÍSTICAS -->
+
+        <section class="estadisticas">
+
+
+            <div class="card-estadistica">
+
+                <span class="numero-estadistica">
+                    0
+                </span>
+
+                <h3>
+                    Total de votantes
+                </h3>
+
+            </div>
+
+
+            <div class="card-estadistica">
+
+                <span class="numero-estadistica">
+                    0
+                </span>
+
+                <h3>
+                    Ya votaron
+                </h3>
+
+            </div>
+
+
+            <div class="card-estadistica">
+
+                <span class="numero-estadistica">
+                    0
+                </span>
+
+                <h3>
+                    No votaron
+                </h3>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- LISTADO DE VOTANTES -->
+
+        <section class="seccion-votantes">
+
+
+            <div class="titulo-seccion">
+
+                <h2>
+                    Votantes registrados
+                </h2>
+
+            </div>
+
+
+
+            <!-- BUSCADOR -->
+
+            <div class="busqueda-votantes">
+
+                <input
+                    type="text"
+                    id="buscarVotante"
+                    placeholder="Buscar por DNI o nombre..."
+                >
+
+                <button type="button">
+                    Buscar
+                </button>
+
+            </div>
+
+
+
+            <!-- TABLA -->
+
+            <div class="tabla-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Foto</th> 
+                            
+                            <th>DNI</th>
+
+                            <th>Nombre</th>
+
+                            <th>Estado</th>
+
+                        </tr>
+
+                    </thead>
+                    
+                    <tbody>
+                        {% for usuario in usuarios %}
+                            <tr>
+                                <td>
+                                    <img
+                                        src="{{ url_for('static', filename='usuarios/' + usuario[3]) }}"
+                                        alt="Foto de {{ usuario[1] }}"
+                                        class="foto-votante"
+                                    >
+                                </td>
+
+                                <td>{{ usuario[2] }}</td>
+
+                                <td>{{ usuario[1] }}</td>
+
+                                <td>
+                                    {% if usuario[4] %}
+                                        Ya votó
+                                    {% else %}
+                                        No votó
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</body>
+
+</html>
+```

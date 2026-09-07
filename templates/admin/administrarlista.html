@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Administrar lista</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="admin-container">
+
+        <header class="admin-header">
+
+            <div>
+                <h1>Administrar lista</h1>
+                <p>Administrá los votantes y candidatos del sistema.</p>
+            </div>
+
+        </header>
+
+
+        <main>
+
+            <section class="opciones-administrar">
+
+                <div class="opcion-administrar">
+
+                    <h2>Votantes</h2>
+
+                    <p>
+                        Consultá, modificá y eliminá los votantes
+                        registrados en el sistema.
+                    </p>
+
+                    <a href="{{ url_for('administrar_votantes') }}" class="boton-administrar">
+                        Administrar votantes </a>
+                </div>
+
+
+                <div class="opcion-administrar">
+
+                    <h2>Candidatos</h2>
+
+                    <p>
+                        Agregá, modificá y eliminá los candidatos
+                        que participarán en la elección.
+                    </p>
+
+                    <a href="{{ url_for('administrar_candidatos') }}" class="boton-administrar">
+                        Administrar candidatos 
+                    </a>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

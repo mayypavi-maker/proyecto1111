@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Votante</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo">
+
+        <h1>Registro de Votantes</h1>
+
+    {% if error %}
+    <div class="alert alert-error">{{ error }}</div>
+    {% elif mensaje %}
+    <div class="alert alert-success">{{ mensaje }}</div>
+    {% endif %}
+
+    <form action="{{ url_for('registrarvotante') }}" method="POST" id="formularioVotante" novalidate>
+        <div id="camara">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="fotoCapturada" width="500" height="380"></canvas>
+        </div>
+
+        <br>
+
+        <button type="button" id="abrirCamara">
+            📷 Abrir cámara
+        </button>
+
+        <br><br>
+
+        <label>Nombre y Apellido</label>
+        <br>
+        <input type="text" id="nombre" name="nombre" required maxlength="80" pattern="^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$" placeholder="Ej: Ana García">
+
+        <br><br>
+
+        <label>DNI</label>
+        <br>
+        <input type="text" id="dni" name="dni" required maxlength="8" inputmode="numeric" pattern="^\d{7,8}$" placeholder="Ej: 12345678">
+
+        <input type="hidden" id="fotoBase64" name="fotoBase64">
+
+        <br><br>
+
+        <button class="boton-verde" type="submit">💾 Registrar votante</button>
+    </form>
+
+    </div>
+    <script src="{{ url_for('static', filename='js/camara.js') }}"></script>
+</body>
+</html>

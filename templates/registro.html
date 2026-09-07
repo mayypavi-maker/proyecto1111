@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vota ID</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo">
+    <p> Ingrese su DNI para iniciar la votación</p>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="{{ url_for('registrar') }}" method="POST">
+
+    <label>DNI</label>
+    <br>
+
+    <input type="text" name="dni">
+
+    <br><br>
+     <button>
+
+        Registrar
+
+    </button>
+    </div>
+    </form>
+</body>
+</html>

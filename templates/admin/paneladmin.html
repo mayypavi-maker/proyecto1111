@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel de Administración</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo">
+
+    <h1>Panel de Administración</h1>
+
+    <p>Seleccione una opción</p>
+
+    <a href="{{ url_for('registrarvotante') }}" class="boton">👤 Registrar votante</a>
+
+    <a href="{{ url_for('administrarlista') }}" class="boton"> 🗳️ Administrar listas </a>
+    <a href="{{ url_for('resultados') }}" class="boton"> 📊 Resultados en vivo</a>
+
+    <a href="{{ url_for('estado_jornada') }}" class="boton"> 👥 Estado de la jornada</a>
+    <a href="/" class="boton cerrar">🚪 Cerrar sesión</a>
+
+</div>
+
+</body>
+
+</html>

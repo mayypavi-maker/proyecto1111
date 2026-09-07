@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Estado de la jornada</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="admin-container">
+
+        <!-- ENCABEZADO -->
+
+        <header class="admin-header">
+
+            <div>
+
+                <h1>Estado de la jornada</h1>
+
+                <p>
+                    Consultá el estado actual del proceso electoral.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- ESTADO PRINCIPAL -->
+
+        <section class="estado-principal">
+
+            <div class="estado-icono">
+                ●
+            </div>
+
+            <h2>
+                Jornada activa
+            </h2>
+
+            <p>
+                El sistema de votación se encuentra habilitado.
+            </p>
+
+        </section>
+
+
+        <!-- INFORMACIÓN DE LA JORNADA -->
+
+        <section class="informacion-jornada">
+
+            <div class="dato-jornada">
+
+                <h3>Inicio de la jornada</h3>
+
+                <p>08:00 hs</p>
+
+            </div>
+
+
+            <div class="dato-jornada">
+
+                <h3>Cierre de la jornada</h3>
+
+                <p>16:00 hs</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CERRAR JORNADA -->
+
+        <div class="cerrar-jornada">
+
+            <button type="button">
+                🔒 Cerrar jornada
+            </button>
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

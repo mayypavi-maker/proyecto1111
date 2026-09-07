@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reconocimiento</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" class="logo">
+
+        <h1>Reconocimiento Facial</h1>
+
+        <p>Colocá tu rostro dentro del recuadro.</p>
+
+        <div class="camara">
+            <video id="video" autoplay></video>
+        <div class="recuadro"></div>
+    </div>
+
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <p id="estado">Colocá tu rostro dentro del óvalo</p>
+
+</div>
+<script>
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const estado = document.getElementById("estado");
+
+    let verificando = false;
+    let rostroDetectadoDesde = null;
+
+    // Encender la cámara
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+        })
+        .catch(error => {
+            console.error("Error al acceder a la cámara:", error);
+            estado.textContent = "No se pudo acceder a la cámara.";
+        });
+
+
+    // Revisar la cámara cada 500 milisegundos
+    setInterval(() => {
+
+        // Si ya estamos procesando una captura, no hacemos otra
+        if (verificando) {
+            return;
+        }
+
+        // Esperar a que la cámara tenga una imagen
+        if (video.videoWidth === 0 || video.videoHeight === 0) {
+            return;
+        }
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const contexto = canvas.getContext("2d");
+
+        contexto.drawImage(
+            video,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        canvas.toBlob(blob => {
+
+            const datos = new FormData();
+
+            datos.append("foto", blob, "captura.jpg");
+
+            fetch("/verificar_rostro", {
+                method: "POST",
+                body: datos
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.rostro) {
+
+                    estado.textContent =
+                        "✓ Rostro detectado. Mantenete quieto...";
+
+                    // Comenzamos a contar el segundo
+                    if (rostroDetectadoDesde === null) {
+                        rostroDetectadoDesde = Date.now();
+                    }
+
+                    // Esperamos 1 segundo
+                    if (Date.now() - rostroDetectadoDesde >= 1000) {
+
+                        verificando = true;
+
+                        estado.textContent =
+                            "📸 Capturando...";
+
+                        capturarImagen();
+                    }
+
+                } else {
+
+                    estado.textContent =
+                        "Colocá tu rostro dentro del óvalo";
+
+                    // Reiniciamos el contador
+                    rostroDetectadoDesde = null;
+                }
+
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
+        }, "image/jpeg");
+
+    }, 500);
+
+
+    // Función que realiza la captura final
+    function capturarImagen() {
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const contexto = canvas.getContext("2d");
+
+        contexto.drawImage(
+            video,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        canvas.toBlob(blob => {
+
+            const datos = new FormData();
+
+            datos.append("foto", blob, "captura_final.jpg");
+
+            fetch("/verificar_rostro", {
+                method: "POST",
+                body: datos
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.rostro) {
+
+                    estado.textContent =
+                        "✓ Rostro detectado correctamente.";
+
+                    console.log("Captura realizada correctamente.");
+
+                    // Acá posteriormente conectaremos
+                    // con el siguiente paso del sistema.
+
+                } else {
+
+                    estado.textContent =
+                        "No se pudo detectar el rostro.";
+
+                    verificando = false;
+                    rostroDetectadoDesde = null;
+                }
+
+            })
+            .catch(error => {
+
+                console.error("Error:", error);
+
+                verificando = false;
+                rostroDetectadoDesde = null;
+            });
+
+        }, "image/jpeg");
+    }
+
+</script>
+
+</body>
+
+</html>
