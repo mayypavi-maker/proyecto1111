@@ -2,42 +2,117 @@
 <html lang="es">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Votación</title>
-          <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
 
     <body>
-        <h1>Bienvenido a la Votación Digital</h1>
-        <div class="boleta">
-            <div class="lista">
-                <div class="Encabezado-Lista">
-                    <span>101</span>
-                    <h3>FRENTE CIUDADANO</h3>
-                    <div class="logo-lista">FC</div>
-                </div>
-
-                <div class="categoría">
-                <h2>SENADORES</h2>
-
-                <div class="opción">
-                    <input type="radio" name="senador" value="lista101">
-                    <div class="candidatos">
-                        <p>1. Candidato Senador </p>
-                        <p>2. Candidata Senadora </p>
+        <main class="votacion-page">
+            <form class="boleta-wrapper" method="post">
+                <section class="boleta" aria-label="Boleta de votación">
+                    <div class="boleta-header">
+                        <div class="boleta-identidad">
+                            <span class="boleta-anio">ELECCIONES 2026</span>
+                            <h2>Boleta única</h2>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="categoría">
-                <h4>DIPUTADOS</h4>
-                <div class="opción">
-                    <input type="radio" name="diputado" value="lista101">
-                    <div class="candidatos">
-                        <p>1. Candidato Diputado </p>
-                        <p>2. Candidata Diputada </p>
-                    </div>
-                </div>
-            </div>
-        </div>  
 
+                    <div class="boleta-subheader">
+                        <span class="mesa">Mesa N° 04</span>
+                        <span class="estado">Oficial</span>
+                    </div>
+
+                    <div class="boleta-scroll">
+                        <div class="lista-grid" role="radiogroup" aria-label="Partidos disponibles">
+                            <div class="partido-columna">
+                                <div class="partido-header">
+                                    <span class="partido-num">101</span>
+                                    <span class="partido-logo logo-1">FC</span>
+                                </div>
+                                <h3>Frente Ciudadano</h3>
+                                <label class="radio-fila">
+                                    <input type="radio" name="senador" value="lista101">
+                                    <span>Senador</span>
+                                </label>
+                                <label class="radio-fila">
+                                    <input type="radio" name="diputado" value="lista101">
+                                    <span>Diputado</span>
+                                </label>
+                            </div>
+
+                            <div class="partido-columna">
+                                <div class="partido-header">
+                                    <span class="partido-num">202</span>
+                                    <span class="partido-logo logo-2">P</span>
+                                </div>
+                                <h3>Progresista</h3>
+                                <label class="radio-fila">
+                                    <input type="radio" name="senador" value="lista202">
+                                    <span>Senador</span>
+                                </label>
+                                <label class="radio-fila">
+                                    <input type="radio" name="diputado" value="lista202">
+                                    <span>Diputado</span>
+                                </label>
+                            </div>
+
+                            <div class="partido-columna">
+                                <div class="partido-header">
+                                    <span class="partido-num">303</span>
+                                    <span class="partido-logo logo-3">UN</span>
+                                </div>
+                                <h3>Unión Nacional</h3>
+                                <label class="radio-fila">
+                                    <input type="radio" name="senador" value="lista303">
+                                    <span>Senador</span>
+                                </label>
+                                <label class="radio-fila">
+                                    <input type="radio" name="diputado" value="lista303">
+                                    <span>Diputado</span>
+                                </label>
+                            </div>
+
+                            <div class="partido-columna">
+                                <div class="partido-header">
+                                    <span class="partido-num">404</span>
+                                    <span class="partido-logo logo-4">R</span>
+                                </div>
+                                <h3>Renovación</h3>
+                                <label class="radio-fila">
+                                    <input type="radio" name="senador" value="lista404">
+                                    <span>Senador</span>
+                                </label>
+                                <label class="radio-fila">
+                                    <input type="radio" name="diputado" value="lista404">
+                                    <span>Diputado</span>
+                                </label>
+                            </div>
+
+                            <div class="partido-columna">
+                                <div class="partido-header">
+                                    <span class="partido-num">505</span>
+                                    <span class="partido-logo logo-5">V</span>
+                                </div>
+                                <h3>Voto Verde</h3>
+                                <label class="radio-fila">
+                                    <input type="radio" name="senador" value="lista505">
+                                    <span>Senador</span>
+                                </label>
+                                <label class="radio-fila">
+                                    <input type="radio" name="diputado" value="lista505">
+                                    <span>Diputado</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="acciones">
+                    <button type="submit" class="boton-verde">Confirmar voto</button>
+                    <a href="/" class="boton cerrar">Cancelar</a>
+                </div>
+            </form>
+        </main>
     </body>
-    </html>
+</html>
