@@ -1,0 +1,30 @@
+import sqlite3
+
+con = sqlite3.connect("Votaid.db")
+cur = con.cursor()
+
+# Los 10 candidatos actuales (los que están hardcodeados en el HTML)
+candidatos = [
+    # partido_id, categoria, nombre, foto_nombre
+    (1, "senador",  "Juan Pérez",       "1_senador.png"),
+    (1, "diputado", "María López",      "1_diputado.png"),
+    (2, "senador",  "Carlos Rodríguez", "2_senador.png"),
+    (2, "diputado", "Ana Martínez",     "2_diputado.png"),
+    (3, "senador",  "Roberto Silva",    "3_senador.png"),
+    (3, "diputado", "Laura González",   "3_diputado.png"),
+    (4, "senador",  "Diego Fernández",  "4_senador.png"),
+    (4, "diputado", "Sofía Ramírez",    "4_diputado.png"),
+    (5, "senador",  "Martín Acosta",    "5_senador.png"),
+    (5, "diputado", "Lucía Benítez",    "5_diputado.png"),
+]
+
+for c in candidatos:
+    cur.execute(
+        "INSERT INTO candidatos (partido_id, categoria, nombre, foto_nombre) VALUES (?, ?, ?, ?)",
+        c
+    )
+
+con.commit()
+con.close()
+
+print("10 candidatos cargados")

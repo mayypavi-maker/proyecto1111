@@ -118,10 +118,8 @@ boton.addEventListener("click", async () => {
         video.srcObject = null;
 
         canvas.toBlob((blob) => {
-            if (estado === "capturada") {
                 console.log("Foto preparada:", blob);
                 fotoBlob = blob;
-            }
         }, "image/jpeg", 0.8);
 
         video.classList.remove("mostrando");

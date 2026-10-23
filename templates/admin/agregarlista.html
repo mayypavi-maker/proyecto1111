@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar nueva lista</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="admin-container">
+
+        <header class="admin-header">
+            <div>
+                <h1>Agregar nueva lista</h1>
+                <p>Creá una lista con su candidato a senador y diputado.</p>
+            </div>
+        </header>
+
+        <section class="form-lista">
+
+            {% if error %}
+                <p class="error-mensaje">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+
+                <h3>Datos de la lista</h3>
+
+                <label for="nombre_partido">Nombre del partido:</label>
+                <input
+                    type="text"
+                    id="nombre_partido"
+                    name="nombre_partido"
+                    placeholder="Ej: Partido Nuevo"
+                    required
+                >
+
+                <label for="numero_lista">Número de lista:</label>
+                <input
+                    type="number"
+                    id="numero_lista"
+                    name="numero_lista"
+                    placeholder="Ej: 606"
+                    required
+                >
+
+                <h3>Candidato a senador</h3>
+
+                <label for="nombre_senador">Nombre y apellido:</label>
+                <input
+                    type="text"
+                    id="nombre_senador"
+                    name="nombre_senador"
+                    placeholder="Ej: Pedro Gómez"
+                    required
+                >
+
+                <label for="foto_senador">Nombre del archivo de foto:</label>
+                <input
+                    type="text"
+                    id="foto_senador"
+                    name="foto_senador"
+                    placeholder="Ej: 6_senador.png"
+                    required
+                >
+                <small>El archivo debe estar en <code>static/img/</code></small>
+
+                <h3>Candidato a diputado</h3>
+
+                <label for="nombre_diputado">Nombre y apellido:</label>
+                <input
+                    type="text"
+                    id="nombre_diputado"
+                    name="nombre_diputado"
+                    placeholder="Ej: Lucía Torres"
+                    required
+                >
+
+                <label for="foto_diputado">Nombre del archivo de foto:</label>
+                <input
+                    type="text"
+                    id="foto_diputado"
+                    name="foto_diputado"
+                    placeholder="Ej: 6_diputado.png"
+                    required
+                >
+                <small>El archivo debe estar en <code>static/img/</code></small>
+
+                <div class="form-botones">
+                    <a href="{{ url_for('administrar_candidatos') }}" class="boton-volver">Cancelar</a>
+                    <button type="submit" class="boton-guardar-fechas">💾 Crear lista</button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</body>
+</html>

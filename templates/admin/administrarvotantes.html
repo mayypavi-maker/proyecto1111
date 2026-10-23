@@ -45,7 +45,7 @@
             <div class="card-estadistica">
 
                 <span class="numero-estadistica">
-                    0
+                    {{ total }}
                 </span>
 
                 <h3>
@@ -58,7 +58,7 @@
             <div class="card-estadistica">
 
                 <span class="numero-estadistica">
-                    0
+                    {{ ya_votaron }}
                 </span>
 
                 <h3>
@@ -71,7 +71,7 @@
             <div class="card-estadistica">
 
                 <span class="numero-estadistica">
-                    0
+                    {{ no_votaron }}
                 </span>
 
                 <h3>
@@ -102,21 +102,33 @@
 
             <!-- BUSCADOR -->
 
-            <div class="busqueda-votantes">
+        <form class="busqueda-votantes" method="GET" action="{{ url_for('administrar_votantes') }}">
 
-                <input
-                    type="text"
-                    id="buscarVotante"
-                    placeholder="Buscar por DNI o nombre..."
-                >
+            <input
+                type="text"
+                name="buscar"
+                id="buscarVotante"
+                placeholder="Buscar por DNI o nombre..."
+                value="{{ buscar or '' }}"
+            >
 
-                <button type="button">
-                    Buscar
-                </button>
+            <button type="submit">
+            Buscar
+            </button>
 
-            </div>
+            {% if buscar %}
+                <a href="{{ url_for('administrar_votantes') }}" class="boton-limpiar">
+                    Limpiar
+                </a>
+            {% endif %}
+        </form>
 
-
+        {% if buscar %}
+            <p class="info-busqueda">
+            Mostrando <strong>{{ usuarios|length }}</strong> de <strong>{{ total }}</strong> votantes
+            para "{{ buscar }}"
+            </p>
+        {% endif %}
 
             <!-- TABLA -->
 

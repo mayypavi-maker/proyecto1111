@@ -9,110 +9,136 @@
 
     <body>
         <main class="votacion-page">
-            <form class="boleta-wrapper" method="post">
+            <form class="boleta-wrapper" method="post" action="/votar" id="form-votacion">
                 <section class="boleta" aria-label="Boleta de votación">
                     <div class="boleta-header">
                         <div class="boleta-identidad">
                             <span class="boleta-anio">ELECCIONES 2026</span>
-                            <h2>Boleta única</h2>
+                            <h2>Boleta Unica Digital</h2>
                         </div>
                     </div>
+                            <div class="boleta-scroll">
+                                            <div class="lista-grid" role="radiogroup" aria-label="Partidos disponibles">
 
-                    <div class="boleta-subheader">
-                        <span class="mesa">Mesa N° 04</span>
-                        <span class="estado">Oficial</span>
+                        {% for partido in partidos %}
+
+                            <div class="partido-columna">
+
+                                <div class="partido-header">
+                                    <span class="partido-num">{{ partido.numero_lista }}</span>
+
+                                    <img
+                                        src="{{ url_for('static', filename='img/' + partido.id|string + '_logo.png') }}"
+                                        alt="Logo {{ partido.nombre }}"
+                                        class="partido-logo-img"
+                                        onerror="this.style.display='none'"
+                                    >
+                                </div>
+
+                                <h3>{{ partido.nombre }}</h3>
+
+                                {% if partido.senador %}
+                                    <label class="radio-fila">
+                                        <input type="radio" name="senador" value="lista{{ partido.numero_lista }}">
+                                        <img
+                                            src="{{ url_for('static', filename='img/' + partido.senador.foto) }}"
+                                            alt="{{ partido.senador.nombre }}"
+                                            class="candidato-foto"
+                                        >
+                                        <span>Senador — {{ partido.senador.nombre }}</span>
+                                    </label>
+                                {% endif %}
+
+                                {% if partido.diputado %}
+                                    <label class="radio-fila">
+                                        <input type="radio" name="diputado" value="lista{{ partido.numero_lista }}">
+                                        <img
+                                            src="{{ url_for('static', filename='img/' + partido.diputado.foto) }}"
+                                            alt="{{ partido.diputado.nombre }}"
+                                            class="candidato-foto"
+                                        >
+                                        <span>Diputado — {{ partido.diputado.nombre }}</span>
+                                    </label>
+                                {% endif %}
+
+                            </div>
+
+                        {% endfor %}
+
                     </div>
-
-                    <div class="boleta-scroll">
-                        <div class="lista-grid" role="radiogroup" aria-label="Partidos disponibles">
-                            <div class="partido-columna">
-                                <div class="partido-header">
-                                    <span class="partido-num">101</span>
-                                    <span class="partido-logo logo-1">FC</span>
-                                </div>
-                                <h3>Frente Ciudadano</h3>
-                                <label class="radio-fila">
-                                    <input type="radio" name="senador" value="lista101">
-                                    <span>Senador</span>
-                                </label>
-                                <label class="radio-fila">
-                                    <input type="radio" name="diputado" value="lista101">
-                                    <span>Diputado</span>
-                                </label>
-                            </div>
-
-                            <div class="partido-columna">
-                                <div class="partido-header">
-                                    <span class="partido-num">202</span>
-                                    <span class="partido-logo logo-2">P</span>
-                                </div>
-                                <h3>Progresista</h3>
-                                <label class="radio-fila">
-                                    <input type="radio" name="senador" value="lista202">
-                                    <span>Senador</span>
-                                </label>
-                                <label class="radio-fila">
-                                    <input type="radio" name="diputado" value="lista202">
-                                    <span>Diputado</span>
-                                </label>
-                            </div>
-
-                            <div class="partido-columna">
-                                <div class="partido-header">
-                                    <span class="partido-num">303</span>
-                                    <span class="partido-logo logo-3">UN</span>
-                                </div>
-                                <h3>Unión Nacional</h3>
-                                <label class="radio-fila">
-                                    <input type="radio" name="senador" value="lista303">
-                                    <span>Senador</span>
-                                </label>
-                                <label class="radio-fila">
-                                    <input type="radio" name="diputado" value="lista303">
-                                    <span>Diputado</span>
-                                </label>
-                            </div>
-
-                            <div class="partido-columna">
-                                <div class="partido-header">
-                                    <span class="partido-num">404</span>
-                                    <span class="partido-logo logo-4">R</span>
-                                </div>
-                                <h3>Renovación</h3>
-                                <label class="radio-fila">
-                                    <input type="radio" name="senador" value="lista404">
-                                    <span>Senador</span>
-                                </label>
-                                <label class="radio-fila">
-                                    <input type="radio" name="diputado" value="lista404">
-                                    <span>Diputado</span>
-                                </label>
-                            </div>
-
-                            <div class="partido-columna">
-                                <div class="partido-header">
-                                    <span class="partido-num">505</span>
-                                    <span class="partido-logo logo-5">V</span>
-                                </div>
-                                <h3>Voto Verde</h3>
-                                <label class="radio-fila">
-                                    <input type="radio" name="senador" value="lista505">
-                                    <span>Senador</span>
-                                </label>
-                                <label class="radio-fila">
-                                    <input type="radio" name="diputado" value="lista505">
-                                    <span>Diputado</span>
-                                </label>
-                            </div>
-                        </div>
                     </div>
-                </section>
 
                 <div class="acciones">
-                    <button type="submit" class="boton-verde">Confirmar voto</button>
-                    <a href="/" class="boton cerrar">Cancelar</a>
+                    <button type="button" class="boton-verde" id="btn-continuar">Continuar</button>
                 </div>
             </form>
         </main>
+
+        <p id="mensaje-error" style="color: red; text-align: center; display: none;"></p>
+
+        <!-- MODAL DE CONFIRMACIÓN -->
+        <div class="modal-overlay" id="modal-confirmacion" style="display: none;">
+            <div class="modal-caja">
+                <h2>Confirmá tu elección</h2>
+                <p class="modal-advertencia">
+                    ⚠️ Una vez confirmado el voto, no podrás modificarlo.
+                </p>
+
+                <div class="modal-resumen">
+                    <p><strong>Senadores:</strong> <span id="resumen-senador">—</span></p>
+                    <p><strong>Diputados:</strong> <span id="resumen-diputado">—</span></p>
+                </div>
+
+                <div class="modal-botones">
+                    <button type="button" class="boton-volver" id="btn-volver">Volver</button>
+                    <button type="button" class="boton-confirmar" id="btn-confirmar">Confirmar voto</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Mapeo de listas a nombres para mostrar en el resumen
+            const NOMBRES_LISTAS = {
+                "lista101": "Lista 101 — Frente Ciudadano",
+                "lista202": "Lista 202 — Progresista",
+                "lista303": "Lista 303 — Unión Nacional",
+                "lista404": "Lista 404 — Renovación",
+                "lista505": "Lista 505 — Voto Verde"
+            };
+
+            const btnContinuar = document.getElementById("btn-continuar");
+            const btnVolver = document.getElementById("btn-volver");
+            const btnConfirmar = document.getElementById("btn-confirmar");
+            const modal = document.getElementById("modal-confirmacion");
+            const mensajeError = document.getElementById("mensaje-error");
+
+            btnContinuar.addEventListener("click", () => {
+                const senador = document.querySelector('input[name="senador"]:checked');
+                const diputado = document.querySelector('input[name="diputado"]:checked');
+
+                if (!senador || !diputado) {
+                    mensajeError.textContent = "Tenés que elegir un senador y un diputado antes de continuar.";
+                    mensajeError.style.display = "block";
+                    return;
+                }
+
+                mensajeError.style.display = "none";
+
+                document.getElementById("resumen-senador").textContent =
+                    NOMBRES_LISTAS[senador.value] || senador.value;
+                document.getElementById("resumen-diputado").textContent =
+                    NOMBRES_LISTAS[diputado.value] || diputado.value;
+
+                modal.style.display = "flex";
+            });
+
+            btnVolver.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+
+            btnConfirmar.addEventListener("click", () => {
+                document.getElementById("form-votacion").submit();
+            });
+        </script>
     </body>
 </html>

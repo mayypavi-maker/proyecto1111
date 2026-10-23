@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar candidato</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="admin-container">
+
+        <header class="admin-header">
+            <div>
+                <h1>Agregar candidato</h1>
+                <p>Completá los datos del nuevo candidato.</p>
+            </div>
+        </header>
+
+        <section class="form-candidato">
+
+            {% if error %}
+                <p class="error-mensaje">{{ error }}</p>
+            {% endif %}
+
+            <form method="POST">
+
+                <label for="partido_id">Partido:</label>
+                <select id="partido_id" name="partido_id" required>
+                    <option value="">-- Elegí un partido --</option>
+                    {% for p in partidos %}
+                        <option value="{{ p[0] }}">{{ p[0] }} — {{ p[1] }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="">-- Elegí --</option>
+                    <option value="senador">Senador</option>
+                    <option value="diputado">Diputado</option>
+                </select>
+
+                <label for="nombre">Nombre y apellido:</label>
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Ej: Juan Pérez"
+                    required
+                >
+
+                <label for="foto_nombre">Nombre del archivo de la foto:</label>
+                <input
+                    type="text"
+                    id="foto_nombre"
+                    name="foto_nombre"
+                    placeholder="Ej: 1_senador.png"
+                    required
+                >
+                <small>El archivo tiene que estar en <code>static/img/partidos/</code></small>
+
+                <div class="form-botones">
+                    <a href="{{ url_for('administrar_candidatos') }}" class="boton-volver">Cancelar</a>
+                    <button type="submit" class="boton-guardar-fechas"> Guardar candidato</button>
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</body>
+</html>

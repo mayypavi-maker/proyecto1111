@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Votación</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <main class="votacion-page">
+            <form class="boleta-wrapper" method="post" action="/votar" id="form-votacion">
+                <section class="boleta" aria-label="Boleta de votación">
+                    <div class="boleta-header">
+                        <div class="boleta-identidad">
+                            <span class="boleta-anio">ELECCIONES 2026</span>
+                            <h2>Boleta única</h2>
+                        </div>
+                    </div>
+
+                    <div class="partido-columna">
+                        <div class="partido-header">
+                            <span class="partido-num">101</span>
+                            <img
+                                src="{{ url_for('static', filename='img/1_logo.png') }}"
+                                alt="Logo Nuevo Horizonte"
+                                class="partido-logo-img"
+                            >
+                        </div>
+                        <h3>Nuevo Horizonte</h3>
+                        <label class="radio-fila">
+                            <input type="radio" name="senador" value="lista101">
+                            <img
+                                src="{{ url_for('static', filename='img/1_senador.png') }}"
+                                alt="Juan Pérez"
+                                class="candidato-foto"
+                            >
+                            <span>Senador — Juan Pérez</span>
+                        </label>
+                        <label class="radio-fila">
+                            <input type="radio" name="diputado" value="lista101">
+                            <img
+                                src="{{ url_for('static', filename='img/1_diputado.png') }}"
+                                alt="María López"
+                                class="candidato-foto"
+                            >
+                            <span>Diputado — María López</span>
+                        </label>
+                    </div>
+
+                    <div class="partido-columna">
+                        <div class="partido-header">
+                        <span class="partido-num">202</span>
+                        <img
+                            src="{{ url_for('static', filename='img/2_logo.png') }}"
+                            alt="Logo Union Ciudadana"
+                            class="partido-logo-img"
+                        >
+                    </div>
+                    <h3>Union Ciudadana</h3>
+                    <label class="radio-fila">
+                        <input type="radio" name="senador" value="lista202">
+                        <img
+                            src="{{ url_for('static', filename='img/2_senador.png') }}"
+                            alt="Carlos Rodríguez"
+                            class="candidato-foto"
+                        >
+                        <span>Senador — Carlos Rodríguez</span>
+                    </label>
+                    <label class="radio-fila">
+                        <input type="radio" name="diputado" value="lista202">
+                        <img
+                            src="{{ url_for('static', filename='img/2_diputado.png') }}"
+                            alt="Ana Martínez"
+                            class="candidato-foto"
+                        >
+                        <span>Diputado — Ana Martínez</span>
+                    </label>
+                </div>
+
+                <div class="partido-columna">
+                    <div class="partido-header">
+                        <span class="partido-num">303</span>
+                        <img
+                            src="{{ url_for('static', filename='img/3_logo.png') }}"
+                            alt="Logo Frente Verde"
+                            class="partido-logo-img"
+                        >
+                    </div>
+                    <h3>Frente Verde</h3>
+                    <label class="radio-fila">
+                        <input type="radio" name="senador" value="lista303">
+                        <img
+                            src="{{ url_for('static', filename='img/3_senador.png') }}"
+                            alt="Roberto Silva"
+                            class="candidato-foto"
+                        >
+                        <span>Senador — Roberto Silva</span>
+                </label>
+                <label class="radio-fila">
+                    <input type="radio" name="diputado" value="lista303">
+                    <img
+                        src="{{ url_for('static', filename='img/3_diputado.png') }}"
+                        alt="Laura González"
+                        class="candidato-foto"
+                    >
+                    <span>Diputado — Laura González</span>
+                </label>
+            </div>
+
+            <div class="partido-columna">
+                <div class="partido-header">
+                    <span class="partido-num">404</span>
+                    <img
+                        src="{{ url_for('static', filename='img/4_logo.png') }}"
+                        alt="Logo Fuerza Popular"
+                        class="partido-logo-img"
+                    >
+                </div>
+                <h3>Fuerza Popular</h3>
+                <label class="radio-fila">
+                    <input type="radio" name="senador" value="lista404">
+                    <img
+                        src="{{ url_for('static', filename='img/4_senador.png') }}"
+                        alt="Diego Fernández"
+                        class="candidato-foto"
+                    >
+                    <span>Senador — Diego Fernández</span>
+                </label>
+                <label class="radio-fila">
+                    <input type="radio" name="diputado" value="lista404">
+                    <img
+                        src="{{ url_for('static', filename='img/4_diputados.png') }}"
+                        alt="Sofía Ramírez"
+                        class="candidato-foto"
+                    >
+                    <span>Diputado — Sofía Ramírez</span>
+                </label>
+            </div>
+
+            <div class="partido-columna">
+                <div class="partido-header">
+                    <span class="partido-num">505</span>
+                    <img
+                        src="{{ url_for('static', filename='img/5_logo.png') }}"
+                        alt="Logo Alianza Libre"
+                        class="partido-logo-img"
+                    >
+                </div>
+                <h3>Alianza Libre</h3>
+                <label class="radio-fila">
+                    <input type="radio" name="senador" value="lista505">
+                    <img
+                        src="{{ url_for('static', filename='img/5_senador.png') }}"
+                        alt="Martín Acosta"
+                        class="candidato-foto"
+                    >
+                    <span>Senador — Martín Acosta</span>
+                </label>
+                <label class="radio-fila">
+                    <input type="radio" name="diputado" value="lista505">
+                    <img
+                        src="{{ url_for('static', filename='img/5_diputado.png') }}"
+                        alt="Lucía Benítez"
+                        class="candidato-foto"
+                    >
+                    <span>Diputado — Lucía Benítez</span>
+                </label>
+            </div>
+        </div>
+
+                <div class="acciones">
+                    <button type="button" class="boton-verde" id="btn-continuar">Continuar</button>
+                </div>
+            </form>
+        </main>
+
+        <p id="mensaje-error" style="color: red; text-align: center; display: none;"></p>
+
+        <!-- MODAL DE CONFIRMACIÓN -->
+        <div class="modal-overlay" id="modal-confirmacion" style="display: none;">
+            <div class="modal-caja">
+                <h2>Confirmá tu elección</h2>
+                <p class="modal-advertencia">
+                    ⚠️ Una vez confirmado el voto, no podrás modificarlo.
+                </p>
+
+                <div class="modal-resumen">
+                    <p><strong>Senadores:</strong> <span id="resumen-senador">—</span></p>
+                    <p><strong>Diputados:</strong> <span id="resumen-diputado">—</span></p>
+                </div>
+
+                <div class="modal-botones">
+                    <button type="button" class="boton-volver" id="btn-volver">Volver</button>
+                    <button type="button" class="boton-confirmar" id="btn-confirmar">Confirmar voto</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Mapeo de listas a nombres para mostrar en el resumen
+            const NOMBRES_LISTAS = {
+                "lista101": "Lista 101 — Frente Ciudadano",
+                "lista202": "Lista 202 — Progresista",
+                "lista303": "Lista 303 — Unión Nacional",
+                "lista404": "Lista 404 — Renovación",
+                "lista505": "Lista 505 — Voto Verde"
+            };
+
+            const btnContinuar = document.getElementById("btn-continuar");
+            const btnVolver = document.getElementById("btn-volver");
+            const btnConfirmar = document.getElementById("btn-confirmar");
+            const modal = document.getElementById("modal-confirmacion");
+            const mensajeError = document.getElementById("mensaje-error");
+
+            btnContinuar.addEventListener("click", () => {
+                const senador = document.querySelector('input[name="senador"]:checked');
+                const diputado = document.querySelector('input[name="diputado"]:checked');
+
+                if (!senador || !diputado) {
+                    mensajeError.textContent = "Tenés que elegir un senador y un diputado antes de continuar.";
+                    mensajeError.style.display = "block";
+                    return;
+                }
+
+                mensajeError.style.display = "none";
+
+                document.getElementById("resumen-senador").textContent =
+                    NOMBRES_LISTAS[senador.value] || senador.value;
+                document.getElementById("resumen-diputado").textContent =
+                    NOMBRES_LISTAS[diputado.value] || diputado.value;
+
+                modal.style.display = "flex";
+            });
+
+            btnVolver.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+
+            btnConfirmar.addEventListener("click", () => {
+                document.getElementById("form-votacion").submit();
+            });
+        </script>
+    </body>
+</html>

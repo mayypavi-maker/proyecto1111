@@ -16,80 +16,129 @@
 
 <body>
 
-    <div class="admin-container">
+   <div class="admin-container">
 
-        <!-- ENCABEZADO -->
+    <!-- ENCABEZADO -->
+    <header class="admin-header">
+        <div>
+            <h1>Estado de la jornada</h1>
+            <p>Consultá el estado actual del proceso electoral.</p>
+        </div>
+    </header>
 
-        <header class="admin-header">
+    <!-- ============================================ -->
+    <!-- BLOQUE 1: ESTADO ACTUAL (solo info)          -->
+    <!-- ============================================ -->
+    <section class="estado-principal {{ estado }}">
 
-            <div>
+        <div class="estado-icono">●</div>
 
-                <h1>Estado de la jornada</h1>
+        {% if estado == "activa" %}
+            <h2>Jornada activa</h2>
+            <p>El sistema de votación se encuentra habilitado.</p>
 
-                <p>
-                    Consultá el estado actual del proceso electoral.
-                </p>
+        {% elif estado == "no_iniciada" %}
+            <h2>Jornada no iniciada</h2>
+            <p>La votación todavía no ha comenzado.</p>
 
-            </div>
+        {% elif estado == "cerrada" %}
+            <h2>Jornada cerrada</h2>
+            <p>El sistema de votación está deshabilitado.</p>
+        {% endif %}
 
-        </header>
+        {% if fecha_inicio %}
+            <p class="fecha-info">Inicio: {{ fecha_inicio.replace('T', ' a las ') }}</p>
+        {% endif %}
+        {% if fecha_cierre %}
+            <p class="fecha-info">Cierre: {{ fecha_cierre.replace('T', ' a las ') }}</p>
+        {% endif %}
 
-
-        <!-- ESTADO PRINCIPAL -->
-
-        <section class="estado-principal">
-
-            <div class="estado-icono">
-                ●
-            </div>
-
-            <h2>
-                Jornada activa
-            </h2>
-
-            <p>
-                El sistema de votación se encuentra habilitado.
-            </p>
-
-        </section>
-
-
-        <!-- INFORMACIÓN DE LA JORNADA -->
-
-        <section class="informacion-jornada">
-
-            <div class="dato-jornada">
-
-                <h3>Inicio de la jornada</h3>
-
-                <p>08:00 hs</p>
-
-            </div>
-
-
-            <div class="dato-jornada">
-
-                <h3>Cierre de la jornada</h3>
-
-                <p>16:00 hs</p>
-
-            </div>
-
-        </section>
-
-
-        <!-- CERRAR JORNADA -->
-
-        <div class="cerrar-jornada">
-
-            <button type="button">
-                🔒 Cerrar jornada
-            </button>
-
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('resultados') }}" class="boton">📊 Ver resultados</a>
         </div>
 
+    </section>
 
-    </div>
+
+    <!-- ============================================ -->
+    <!-- BLOQUE 2: GESTIÓN DE LA JORNADA              -->
+    <!-- ============================================ -->
+    <section class="gestion-jornada">
+
+        <h3>⚙️ Gestión de la jornada</h3>
+
+        {% if estado == "cerrada" %}
+
+            <p class="gestion-mensaje">
+                La jornada está cerrada. Elegí nuevas fechas para reabrirla.
+            </p>
+
+            <form method="POST" action="{{ url_for('reabrir_jornada') }}"
+                  onsubmit="return confirm('¿Seguro que querés reabrir la jornada con estas fechas?');">
+
+                <label for="fecha_inicio">Nueva fecha y hora de inicio:</label>
+                <input
+                    type="datetime-local"
+                    id="fecha_inicio"
+                    name="fecha_inicio"
+                    required
+                >
+
+                <label for="fecha_cierre">Nueva fecha y hora de cierre:</label>
+                <input
+                    type="datetime-local"
+                    id="fecha_cierre"
+                    name="fecha_cierre"
+                    required
+                >
+
+                <button type="submit" class="boton-reabrir">
+                    🔓 Reabrir jornada
+                </button>
+
+            </form>
+
+        {% else %}
+
+            <form method="POST" action="{{ url_for('guardar_fechas') }}">
+
+                <label for="fecha_inicio">Fecha y hora de inicio:</label>
+                <input
+                    type="datetime-local"
+                    id="fecha_inicio"
+                    name="fecha_inicio"
+                    value="{{ fecha_inicio or '' }}"
+                    required
+                >
+
+                <label for="fecha_cierre">Fecha y hora de cierre:</label>
+                <input
+                    type="datetime-local"
+                    id="fecha_cierre"
+                    name="fecha_cierre"
+                    value="{{ fecha_cierre or '' }}"
+                    required
+                >
+
+              <button type="submit" class="boton boton-verde">
+            Guardar fechas
+        </button>
+            </form>
+
+            <hr style="margin: 25px 0; border: none; border-top: 1px solid #ddd;">
+
+            <form method="POST" action="{{ url_for('cerrar_jornada') }}"
+                  onsubmit="return confirm('¿Seguro que querés cerrar la jornada AHORA?');">
+                <button type="submit" class="boton-cerrar-jornada">
+                    🔒 Cerrar jornada ahora
+                </button>
+            </form>
+
+        {% endif %}
+
+    </section>
+
+</div>
 
 </body>
 

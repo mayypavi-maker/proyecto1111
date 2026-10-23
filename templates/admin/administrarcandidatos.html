@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Administrar candidatos</title>
+    <title>Administrar Listas</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -25,7 +25,7 @@
 
             <div>
 
-                <h1>Administrar candidatos</h1>
+                <h1>Administrar Listas</h1>
 
                 <p>
                     Gestioná los candidatos que participan en la elección.
@@ -35,75 +35,77 @@
 
         </header>
 
+    <!-- BOTÓN AGREGAR NUEVA LISTA -->
+    <div class="agregar-candidato">
+        <a href="{{ url_for('agregar_lista') }}" class="boton-agregar">
+            + Agregar nueva lista
+        </a>
+    </div>
 
-        <!-- CANDIDATOS -->
+    <!-- LISTA DE PARTIDOS CON SUS CANDIDATOS -->
+    <div class="lista-partidos">
 
-        <section class="seccion-candidatos">
+        {% for partido in partidos %}
 
+            <div class="partido-bloque">
 
-            <div class="titulo-seccion">
+                <!-- Encabezado del partido -->
+                <div class="partido-bloque-header">
+                    <h3>
+                        Lista {{ partido.numero_lista }} — {{ partido.nombre }}
+                    </h3>
 
-                <h2>
-                    Candidatos registrados
-                </h2>
+                    <a href="{{ url_for('eliminar_lista', partido_id=partido.id) }}"
+                       class="boton-eliminar-partido"
+                       onclick="return confirm('¿Eliminar esta lista y sus candidatos?');">
+                        🗑️ Eliminar lista
+                    </a>
+                </div>
 
-                <p>
-                    Consultá y administrá los candidatos de la elección.
-                </p>
+                <!-- Candidatos -->
+                <div class="candidatos-fila">
+
+                    <!-- Senador -->
+                    <div class="candidato-card">
+                        <span class="categoria-label">Senador</span>
+
+                        {% if partido.senador %}
+                            <img
+                                src="{{ url_for('static', filename='img/' + partido.senador.foto) }}"
+                                alt="{{ partido.senador.nombre }}"
+                                class="candidato-card-foto"
+                            >
+                            <p class="candidato-card-nombre">{{ partido.senador.nombre }}</p>
+                        {% else %}
+                            <p class="sin-candidato">Sin candidato asignado</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Diputado -->
+                    <div class="candidato-card">
+                        <span class="categoria-label">Diputado</span>
+
+                        {% if partido.diputado %}
+                            <img
+                                src="{{ url_for('static', filename='img/' + partido.diputado.foto) }}"
+                                alt="{{ partido.diputado.nombre }}"
+                                class="candidato-card-foto"
+                            >
+                            <p class="candidato-card-nombre">{{ partido.diputado.nombre }}</p>
+                        {% else %}
+                            <p class="sin-candidato">Sin candidato asignado</p>
+                        {% endif %}
+                    </div>
+
+                </div>
 
             </div>
 
+        {% endfor %}
 
-            <!-- BOTÓN AGREGAR -->
+    </div>
 
-            <div class="agregar-candidato">
-
-                <button type="button">
-                    + Agregar candidato
-                </button>
-
-            </div>
-
-
-            <!-- TABLA -->
-
-            <div class="tabla-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Nombre</th>
-
-                            <th>Apellido</th>
-
-                            <th>Lista</th>
-
-                            <th>Acciones</th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-                        <!--
-                            Los candidatos se cargarán
-                            posteriormente desde la base de datos.
-                        -->
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-
-        </section>
-
+</section>
 
     </div>
 

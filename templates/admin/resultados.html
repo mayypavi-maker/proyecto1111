@@ -2,126 +2,103 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Resultados en vivo</title>
-
+    <title>Resultados de la elección</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
-
 <body>
-
     <div class="admin-container">
 
-        <!-- ENCABEZADO -->
-
         <header class="admin-header">
-
             <div>
-
-                <h1>Resultados en vivo</h1>
-
-                <p>
-                    Visualizá los resultados de la elección en tiempo real.
-                </p>
-
+                <h1>Resultados de la elección</h1>
+                <p>Resultados parciales del escrutinio.</p>
             </div>
-
         </header>
 
-
-        <!-- RESULTADOS -->
-
-        <section class="seccion-resultados">
-
-            <div class="titulo-seccion">
-
-                <h2>
-                    Resultados actuales
-                </h2>
-
-                <p>
-                    Los votos registrados hasta el momento.
-                </p>
-
+        <!-- PARTICIPACIÓN -->
+        <section class="participacion">
+            <h2>Participación</h2>
+            <p class="participacion-numeros">
+                <strong>{{ votaron }}</strong> de <strong>{{ total }}</strong> votantes
+                ({{ porcentaje_participacion }}%)
+            </p>
+            <div class="barra-participacion">
+                <div class="barra-relleno" style="width: {{ porcentaje_participacion }}%;"></div>
             </div>
-
-
-            <!-- CANDIDATOS -->
-
-            <div class="resultado-candidato">
-
-                <div class="info-candidato">
-
-                    <h3>Candidato 1</h3>
-
-                    <p>Lista 1</p>
-
-                </div>
-
-                <div class="votos-candidato">
-
-                    <strong>0</strong>
-
-                    <span>votos</span>
-
-                </div>
-
-            </div>
-
-
-            <div class="resultado-candidato">
-
-                <div class="info-candidato">
-
-                    <h3>Candidato 2</h3>
-
-                    <p>Lista 2</p>
-
-                </div>
-
-                <div class="votos-candidato">
-
-                    <strong>0</strong>
-
-                    <span>votos</span>
-
-                </div>
-
-            </div>
-
-
-            <div class="resultado-candidato">
-
-                <div class="info-candidato">
-
-                    <h3>Candidato 3</h3>
-
-                    <p>Lista 3</p>
-
-                </div>
-
-                <div class="votos-candidato">
-
-                    <strong>0</strong>
-
-                    <span>votos</span>
-
-                </div>
-
-            </div>
-
-
         </section>
 
+        <!-- SENADORES -->
+        <section class="resultados-categoria">
+            <h2>Senadores</h2>
+
+            {% if senadores %}
+                {% for partido in senadores %}
+                    <div class="resultado-fila">
+                        <div class="resultado-info">
+                            <img
+                                src="{{ url_for('static', filename='img/' + partido.id|string + '_logo.png') }}"
+                                alt="Logo {{ partido.nombre }}"
+                                class="resultado-logo"
+                                onerror="this.style.display='none'"
+                            >
+                            <span class="resultado-nombre">{{ partido.nombre }}</span>
+                        </div>
+
+                        <div class="resultado-barra-container">
+                            <div class="resultado-barra" style="width: {{ partido.porcentaje }}%;"></div>
+                        </div>
+
+                        <div class="resultado-votos">
+                            <strong>{{ partido.votos }}</strong> votos
+                            <span class="resultado-porcentaje">({{ partido.porcentaje }}%)</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </section>
+
+        <!-- DIPUTADOS -->
+        <section class="resultados-categoria">
+            <h2>Diputados</h2>
+
+            {% if diputados %}
+                {% for partido in diputados %}
+                    <div class="resultado-fila">
+                        <div class="resultado-info">
+                            <img
+                                src="{{ url_for('static', filename='img/' + partido.id|string + '_logo.png') }}"
+                                alt="Logo {{ partido.nombre }}"
+                                class="resultado-logo"
+                                onerror="this.style.display='none'"
+                            >
+                            <span class="resultado-nombre">{{ partido.nombre }}</span>
+                        </div>
+
+                        <div class="resultado-barra-container">
+                            <div class="resultado-barra" style="width: {{ partido.porcentaje }}%;"></div>
+                        </div>
+
+                        <div class="resultado-votos">
+                            <strong>{{ partido.votos }}</strong> votos
+                            <span class="resultado-porcentaje">({{ partido.porcentaje }}%)</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="sin-votos">Todavía no hay votos registrados.</p>
+            {% endif %}
+        </section>
+
+        <div class="acciones-admin">
+            <a href="{{ url_for('estado_jornada') }}" class="boton boton-gris">← Volver a estado de jornada</a>
+        <br>
+        <a href="{{ url_for('panel_admin') }}" class="boton boton-azul">← Volver al panel admin</a>
+</div>
 
     </div>
-
 </body>
 
 </html>

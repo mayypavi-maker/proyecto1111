@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voto registrado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="confirmacion-container">
+
+        <div class="rueda-carga" id="rueda">
+            <svg class="rueda-svg" viewBox="0 0 120 120">
+                <circle class="rueda-fondo" cx="60" cy="60" r="54"></circle>
+                <circle class="rueda-progreso" cx="60" cy="60" r="54" id="circulo"></circle>
+            </svg>
+            <div class="rueda-numero" id="contador">5</div>
+        </div>
+
+        <h1>¡Gracias por votar!</h1>
+        <p>Tu voto fue registrado correctamente.</p>
+        <p class="redirigiendo">Serás redirigido al inicio en <span id="segundos">5</span> segundos...</p>
+
+    </div>
+
+    <script>
+        let segundos = 5;
+        const totalSegundos = 5;
+        const contador = document.getElementById("contador");
+        const segundosSpan = document.getElementById("segundos");
+        const circulo = document.getElementById("circulo");
+
+        // Perímetro del círculo: 2 * PI * radio (radio = 54)
+        const perimetro = 2 * Math.PI * 54;
+        circulo.style.strokeDasharray = perimetro;
+        circulo.style.strokeDashoffset = 0;
+
+        const intervalo = setInterval(() => {
+            segundos--;
+            contador.textContent = segundos;
+            segundosSpan.textContent = segundos;
+
+            // Avanza la rueda proporcionalmente
+            const progreso = (totalSegundos - segundos) / totalSegundos;
+            circulo.style.strokeDashoffset = perimetro * progreso;
+
+            if (segundos <= 0) {
+                clearInterval(intervalo);
+                window.location.href = "/";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
